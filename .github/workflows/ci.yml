@@ -51,7 +51,13 @@ jobs:
       - name: Build Java project with Maven
         run: mvn clean package
     
-      # Test Docker image
+     
+      
+      # Build Docker image
+      - name: Build Docker image
+        run: docker build -t democyber:latest .
+
+      # Test Docker image locally
       - name: Test Docker image locally
         run: |
           docker run -d --name democyber-test -p 8080:8080 democyber:latest
