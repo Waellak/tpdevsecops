@@ -50,3 +50,12 @@ jobs:
       # Build Java project
       - name: Build Java project with Maven
         run: mvn clean package
+    
+      # Test Docker image
+      - name: Test Docker image locally
+        run: |
+          docker run -d --name democyber-test -p 8080:8080 democyber:latest
+          sleep 10
+          curl --fail --retry 5 --retry-delay 2 http://localhost:8080
+          docker stop democyber-test
+          docker rm democyber-test
